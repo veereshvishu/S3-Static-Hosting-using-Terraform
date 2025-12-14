@@ -1,6 +1,6 @@
-S3 Static hosting: S3 Static Hosting using Terraform tutorial(https://youtu.be/bK6RimAv2nQ?si=riG29ZYMsUqgHJjD)
+**S3 Static hosting: S3 Static Hosting using Terraform tutorial**(https://youtu.be/bK6RimAv2nQ?si=riG29ZYMsUqgHJjD)
 
-Pre-requisite:
+**Pre-requisite:**
 ⦁	You are a DevOps Engineer with only QA env access, such as GitHub-TEST-ENV-Repo, Terraform Enterprise TEST workspace, AWS-TEST-Account with limited IAM permissions, and Jenkins-TEST-ENV page.
  	NOTE: Every application on GitHub, Terraform Enterprise, Jenkins, AppDynamics, ArgoCD, SonarQube, Trivy, DockerHub, and AWS Account is secured with AWS 	Cognito.
 ⦁	AWS Cognito is used to log in to GitHub, Terraform Enterprise(SAML), & Jenkins
@@ -8,7 +8,7 @@ Pre-requisite:
 ⦁	How to create a module for S3 hosting Infra and store it in GitHub Repo as source?
 ⦁	How to bind Developer's GitHub TEST Repo, Jenkins-TEST-ENV, AWS TEST Account?
 
-Deployment Flow:
+**Deployment Flow:**
 
 0. Whenever the DevOps Engineer updates the modules with latest security best practices and cost optimization enhancements, Modules are verified by platform  team before creating the service catalogues and SCPs at respective AWS Organizations level accounts. Modules are created with assistance of Security team with respect to latest security customizations, OAC & ACL rules, appending malicious IPs, bot control.
 
@@ -22,7 +22,7 @@ Deployment Flow:
 3. Developer with the access to GitHub Repo creates a PR to merge dev to test branch(This Repo contains the Jenkinsfile too).-- GitLab Flow Branching strategy is used.
 
 
-GitLab Flow Branching Strategy:
+**GitLab Flow Branching Strategy:**
 Step-by-step:
 1.	You take a task from GitLab Issue Tracker
 2.	Create a branch named after the issue:
@@ -45,7 +45,7 @@ Step-by-step:
 
 5. After all the functional testing, OAT testing in TEST ENV. The code is merged to the GitHub PROD branch and deployment is taken care by Senior DevOps Engineer in Production Env.
 
-Optional but important resources to integrate the service with:
+**Optional but important resources to integrate the service with:**
 1.	AWS Config to assess, audit & evaluate the configurations of AWS resources
 2.	AWS Trusted Advisor that identifies opportunities that can save money for users by providing recommendations on cost optimization and detect underutilized resources.
 3.	AWS Shield - Protection against DDoS
@@ -53,7 +53,7 @@ Optional but important resources to integrate the service with:
 5.	AWS X-Ray - View end to end performance metrics & troubleshoot distributed applications, aiding in identifying performance bottlenecks.
 6.	AWS Security Hub - Aggregates findings from tools like GuradDuty, Inspector, etc into a single dashboard.
 
-IAC & CI Design:
+**IAC & CI Design:**
 
 1.	Modules for S3 hosting with below AWS resources:
 -> S3 bucket with versioning, custom S3 bucket policies to allow access to cloudfront & GetObject to CloudFront ARN, enable static hosting with HTTPS, Block public access & apply tags. (Optional): S3 Event Notification,S3 Encryption using AWS KMS/Customer provided keys(SSE-C), S3 Access Logs.
@@ -71,9 +71,9 @@ IAC & CI Design:
 2.	Jenkinsfile which checkout the code from repo branch, builds the source code, and upload the files in S3 (access to AWS S3 Put object), curl the URL and get the exit status code.
 
 
-AWS Hosting Theory(Route53+ CloudFront+ AWS WAF + S3-Private):
+**AWS Hosting Theory(Route53+ CloudFront+ AWS WAF + S3-Private):
 
-Non-CloudFront hosting (Basic Hosting):
+Non-CloudFront hosting (Basic Hosting):**
 
 ⦁	Upload the react file to the S3 bucket
 ⦁	Mention the permission of get objects & custom URL in the bucket policy section of the S3. 
@@ -84,8 +84,8 @@ Non-CloudFront hosting (Basic Hosting):
 ⦁	In Route 53, record name with type A and recommended routing policy should Route traffic to S3 website endpoint.
 ⦁	Open the URL and it works!!
 
-With CloudFront(Secure Hosting):
-
+**With CloudFront(Secure Hosting):
+**
 ⦁	CloudFront enables secure access of page in HTTPS and uses caching for latency.
 
 ⦁	Before that we have to create a certificate from AWS ACM, with type request a public certificate > Add domain name > Select validation method (DNS Validation) > Create the tag names > Add the CNAME record obtained to Route 53 for validation.
