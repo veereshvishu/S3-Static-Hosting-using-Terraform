@@ -68,30 +68,28 @@ Step-by-step:
 
 -> AWS WAF: Layer 7(HTTPS) protection with WAF ACL(Access control Lists) & tags.(Optional): AWS Shield Advanced for DDoS attack.
 
-2.	Jenkinsfile which checkout the code from repo branch, builds the source code, and upload the files in S3 (access to AWS S3 Put object), curl the URL and get the exit status code.
+2.	Jenkinsfile, which checks out the code from the repo branch, builds the source code, and uploads the files to S3 (access to AWS S3 Put object), curls the URL and gets the exit status code.
 
 
-**AWS Hosting Theory(Route53+ CloudFront+ AWS WAF + S3-Private):
+**AWS Hosting Theory(Route53+ CloudFront+ AWS WAF + S3-Private):**
+**Non-CloudFront hosting (Basic Hosting):**
 
-Non-CloudFront hosting (Basic Hosting):**
-
-⦁	Upload the react file to the S3 bucket
-⦁	Mention the permission of get objects & custom URL in the bucket policy section of the S3. 
-⦁	To Access the URL just go to index.html and click on Object URL (might not work)
+⦁	Upload the React file to the S3 bucket
+⦁	Mention the permission to get objects & custom URL in the bucket policy section of the S3. 
+⦁	To Access the URL, just go to index.html and click on Object URL (might not work)
 ⦁	Enable the static website hosting option.
-⦁	Domain name is registered with Instra for Westpac.
+⦁	The domain name is registered with Instra for Westpac.
 ⦁	Remember which routing policy to use for Westpac(Failover).
-⦁	In Route 53, record name with type A and recommended routing policy should Route traffic to S3 website endpoint.
-⦁	Open the URL and it works!!
+⦁	In Route 53, the record name with type A and the recommended routing policy should route traffic to the S3 website endpoint.
+⦁	Open the URL, and it works!!
 
-**With CloudFront(Secure Hosting):
-**
+**With CloudFront(Secure Hosting):**
 ⦁	CloudFront enables secure access of page in HTTPS and uses caching for latency.
 
-⦁	Before that we have to create a certificate from AWS ACM, with type request a public certificate > Add domain name > Select validation method (DNS Validation) > Create the tag names > Add the CNAME record obtained to Route 53 for validation.
+⦁	Before that, we have to create a certificate from AWS ACM, with type request a public certificate > Add domain name > Select validation method (DNS Validation) > Create the tag names > Add the CNAME record obtained to Route 53 for validation.
 
 ⦁	Open Cloudfront > Create Distribution > input origin Domain name value as S3 static bucket website endpoint > Enables realtime logs > Select the AWS WAF > Input the original DNS name as your Alternative Domain Name(CNAME) > Select Custom SSL certificate > Enable Distribution State > Create Distribution.
 
-⦁	Make sure you have static website hosting enabled to HTTPS & Block all Public Access in S3 and edit the Route 53 routing policy towards Cloudfront instead of S3.
+⦁	Ensure that static website hosting is enabled for HTTPS & Block all Public Access in S3. Then, edit the Route 53 routing policy to point towards CloudFront instead of S3.
 
-⦁	Also to have a good latency of the webpage with caching, you need to enable cloudfront invalidation: Open Cloudfront > Distribution Settings > Invalidations > Create Invalidation for all S3 path.
+⦁	Also, to have a good latency of the webpage with caching, you need to enable CloudFront invalidation: Open CloudFront> Distribution Settings > Invalidations > Create Invalidation for all S3 paths.
